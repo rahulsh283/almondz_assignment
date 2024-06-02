@@ -6,7 +6,7 @@ from .models import *
 from django.db.models import Count
 # Create your views here.
 
-
+# Api for add user 
 class UserView(APIView):
 
     def post(self,request):
@@ -31,7 +31,7 @@ class UserView(APIView):
 
 
 
-
+# Api for create group of user
 class ExpenseGroupView(APIView):
 
     def post(self,request):
@@ -57,7 +57,7 @@ class ExpenseGroupView(APIView):
             }
         return Response(res,status)
 
-
+# Api for add expense in every user
 class ExpenseView(APIView):
 
     def post(self,request):
@@ -135,12 +135,12 @@ class ExpenseView(APIView):
             }
         return Response(res,status)
 
-
+# Api for get balance of user
 class GetBalanceForUser(APIView):
 
     def get(self,request):
         try:
-            user_id = request.GET.get("user_id")
+            user_id = int(request.GET.get("user_id"))  # pass user_id in query params
             data = get_per_user_detail(user_id)
 
             data["final_taken_amount_from_users"] = dict(data["final_taken_amount_from_users"])

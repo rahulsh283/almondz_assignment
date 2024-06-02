@@ -5,6 +5,17 @@ from django.db.models import Sum
 
 
 def PerUserSpiltAmount(split_type,total_amount,no_of_member):
+    """
+    Calculate the amount per user based on the split type, total amount, and number of members.
+
+    Args:
+    - split_type (str): The type of split, either "EQUAL" or "PERCENT".
+    - total_amount (float): The total amount to be split.
+    - no_of_member (int): The number of members to split the amount among.
+
+    Returns:
+    float: The amount per user, rounded to two decimal places.
+    """
     per_user_amount = 0
     if split_type == "EQUAL":
         per_user_amount = total_amount/no_of_member
@@ -17,7 +28,18 @@ def PerUserSpiltAmount(split_type,total_amount,no_of_member):
 
 
 def get_per_user_detail(user_id):
-
+    """
+    Get the details of the expenses incurred by a user and the amounts they owe or are owed.
+    
+    Args:
+    - user_id: The ID of the user for whom the details are to be fetched.
+    
+    Returns:
+    A dictionary containing the following information:
+    - expense: The total expenditure incurred by the user.
+    - final_taken_amount_from_users: A list of tuples containing the names of users from whom the current user has taken amounts and the corresponding amounts.
+    - final_given_amount_to_users: A list of tuples containing the names of users to whom the current user has given amounts and the corresponding amounts.
+    """
     user_taken_amount = ExpenseTxnModel.objects.filter(user=user_id).values("owes_user","owes_amount")
     user_given_amount = ExpenseTxnModel.objects.filter(owes_user=user_id).values("user","owes_amount")
     expendature = 0
@@ -62,6 +84,7 @@ def get_per_user_detail(user_id):
     
     final_taken = list(zip(taken_username,final_taken_amount_from_users.values()))
 
+    # Prepare final lists of taken and given amounts with usernames
     given_username = UserModel.objects.filter(userId__in = final_given_amount_to_users.keys()).values_list("name",flat=True)
     final_given = list(zip(given_username,final_given_amount_to_users.values()))
     

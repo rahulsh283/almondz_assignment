@@ -3,6 +3,9 @@ from .models import *
 
 
 class UserSerializer(serializers.ModelSerializer):
+    """
+    Serializer for UserModel.
+    """ 
 
     class Meta:
         model = UserModel
@@ -10,7 +13,9 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class ExpenseGroupSerializer(serializers.ModelSerializer):
-
+    """
+    Serializer for ExpenseGroupModel.
+    """
     class Meta:
         model = ExpenseGroupModel
         fields = "__all__"
@@ -18,6 +23,9 @@ class ExpenseGroupSerializer(serializers.ModelSerializer):
 
 
 class ExpenseSerializer(serializers.ModelSerializer):
+    """
+    Serializer for ExpenseModel.
+    """
 
     class Meta:
         model = ExpenseModel
@@ -25,7 +33,9 @@ class ExpenseSerializer(serializers.ModelSerializer):
 
 
 class ExpenseTxnSerializer(serializers.ModelSerializer):
-
+    """
+    Serializer for ExpenseTxnModel.
+    """
     class Meta:
         model = ExpenseTxnModel
         fields = "__all__"

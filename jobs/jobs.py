@@ -5,6 +5,17 @@ import csv
 import os
 
 def convert_to_csv(data):
+
+    """
+    Convert data to a CSV file.
+
+    Args:
+    - data (dict): Dictionary containing expense data.
+
+    Returns:
+    str: Path to the generated CSV file.
+    """
+
     csv_file_path = 'output.csv'
 
     with open(csv_file_path, mode='w', newline='') as file:
@@ -23,6 +34,10 @@ def convert_to_csv(data):
 
 
 def get_user_data_and_upload_s3_csv():
+    """
+    Retrieve user data, convert it to CSV, and upload to S3.
+    """
+    
     try:
         user_ids = UserModel.objects.values_list("userId",flat=True)
         for id in user_ids:
